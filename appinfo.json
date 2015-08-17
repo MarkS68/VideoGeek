@@ -1,0 +1,42 @@
+{
+    "appKeys": {
+        "KEY_DATEFORMAT": 1,
+        "KEY_USESECONDS": 0
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "sharpm@purdue.edu",
+    "longName": "Video Geek Watchface",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/bluetooth-icon-14.png",
+                "name": "IMAGE_BLUETOOTH_CONNECTED",
+                "type": "png"
+            },
+            {
+                "file": "images/smpteface.png",
+                "name": "IMAGE_SMPTE_FACE",
+                "type": "png"
+            },
+            {
+                "file": "images/videogeek.png",
+                "menuIcon": true,
+                "name": "IMAGE_THUMBNAIL",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Video Geek",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "751884ab-27b9-41ea-8a5f-090da647d558",
+    "versionLabel": "1.04",
+    "watchapp": {
+        "watchface": true
+    }
+}
