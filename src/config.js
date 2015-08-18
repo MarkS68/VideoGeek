@@ -17,7 +17,7 @@ Pebble.addEventListener('showConfiguration', function(e) {
   var useSeconds = temp;
   var dateFormat = getStorageValue('KEY_DATEFORMAT','1');
   var settingsURI = "useSeconds=" + encodeURIComponent(parseInt(useSeconds)) + "&dateFormat="+ encodeURIComponent(parseInt(dateFormat));
-  Pebble.openURL('https://people.pharmacy.purdue.edu/~sharpm/videogeek/index.html?'+settingsURI);
+  Pebble.openURL('http://marks68.github.io/VideoGeek/settings.html?'+settingsURI);
 });
 
 Pebble.addEventListener('webviewclosed', function(e) {
