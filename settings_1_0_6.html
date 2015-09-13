@@ -84,13 +84,11 @@
 			  } else {
 				  retObject.useSeconds = 0;
 			  }
-			  console.log($("#showBluetoothSelector"));
 			  if ($("#showBluetoothSelector").is(':checked')){
 				  retObject.showBluetooth = 1;
 			  } else {
 				  retObject.showBluetooth = 0;
 			  }
-			  //retObject.useSeconds = $("#useSecondsSelector").is(':checked');
 			  retObject.dateFormat = parseInt($("#dateSelect :radio:checked").val());
 			// Set the return URL depending on the runtime environment
 			var return_to = getQueryParam('return_to', 'pebblejs://close#');
