@@ -1,6 +1,7 @@
 {
     "appKeys": {
         "KEY_DATEFORMAT": 1,
+        "KEY_USEBLUETOOTH": 2,
         "KEY_USESECONDS": 0
     },
     "capabilities": [
@@ -35,7 +36,7 @@
         "basalt"
     ],
     "uuid": "751884ab-27b9-41ea-8a5f-090da647d558",
-    "versionLabel": "1.05",
+    "versionLabel": "1.06",
     "watchapp": {
         "watchface": true
     }

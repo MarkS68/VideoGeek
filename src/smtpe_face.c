@@ -3,6 +3,7 @@
 #include <pebble.h>
 #define KEY_USESECONDS 0
 #define KEY_DATEFORMAT 1
+#define KEY_USEBLUETOOTH 2
   
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
@@ -73,7 +74,7 @@ static void destroy_ui(void) {
 
 static int gUseSeconds = 1;
 static int gDateFormat = 1;
-
+static int gUseBluetooth = 1;
 //function to convert to upper case
 char *upcase(char *str)
 {
@@ -89,10 +90,10 @@ char *upcase(char *str)
 
 //bluetooth monitoring
 void bt_handler(bool connected) {
-  if (connected) {
+  if (connected && gUseBluetooth == 1) {
     layer_set_hidden((Layer *)s_textlayer_1, false);
     layer_set_hidden((Layer *)s_bitmaplayer_bluetooth_connected, false);
-  } else {
+  } else if (!connected && gUseBluetooth == 1){
    layer_set_hidden((Layer *)s_textlayer_1, true);
     layer_set_hidden((Layer *)s_bitmaplayer_bluetooth_connected, true);
     vibes_long_pulse();
@@ -172,6 +173,18 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         gUseSeconds =  t->value->int8;
         persist_write_int(KEY_USESECONDS, gUseSeconds);
         break;
+      case KEY_USEBLUETOOTH:
+        //set bluetooth display and persistent storage
+        gUseBluetooth = t->value->int8;
+        persist_write_int(KEY_USEBLUETOOTH, gUseBluetooth);
+        if (gUseBluetooth && bluetooth_connection_service_peek()){
+          layer_set_hidden((Layer *)s_textlayer_1, false);
+          layer_set_hidden((Layer *)s_bitmaplayer_bluetooth_connected, false);
+        } else {
+          layer_set_hidden((Layer *)s_textlayer_1, true);
+          layer_set_hidden((Layer *)s_bitmaplayer_bluetooth_connected, true);
+        }
+        break;
       case KEY_DATEFORMAT:
         //set gDateFormat and persistent storage
         gDateFormat = t->value->int8;
@@ -212,14 +225,8 @@ static void handle_window_unload(Window* window) {
 //  update_time();
 //}
 void init(void){
-  if (persist_exists(KEY_USESECONDS)){
-    APP_LOG(APP_LOG_LEVEL_INFO, "KEY_USESECONDS Exists!");
-    APP_LOG(APP_LOG_LEVEL_INFO, "Value %d", (int) persist_read_int(KEY_USESECONDS));
-  }
-  if (persist_exists(KEY_DATEFORMAT)){
-    APP_LOG(APP_LOG_LEVEL_INFO, "KEY_DATEFORMAT Exists!");
-  }
   gUseSeconds = persist_exists(KEY_USESECONDS) ? persist_read_int(KEY_USESECONDS) : 1;
+  gUseBluetooth = persist_exists(KEY_USEBLUETOOTH) ? persist_read_int(KEY_USEBLUETOOTH) : 1;
   gDateFormat = (int)persist_exists(KEY_DATEFORMAT) ? persist_read_int(KEY_DATEFORMAT) : 1;
   APP_LOG(APP_LOG_LEVEL_INFO, "---Value %d", (int)gDateFormat);
 }

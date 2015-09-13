@@ -10,14 +10,11 @@ function getStorageValue(item, default_value){
 Pebble.addEventListener('showConfiguration', function(e) {
   // Show config page
   //load storage values for seconds and date settings
-  console.log('value: '+getStorageValue('KEY_USESECONDS','1'));
-  var temp = parseInt((getStorageValue('KEY_USESECONDS','1')));
-  console.log(getStorageValue('KEY_USESECONDS','1'));
-  console.log("temp:"+temp);
-  var useSeconds = temp;
+  var useSeconds = parseInt((getStorageValue('KEY_USESECONDS','1')));
+  var useBluetooth = parseInt((getStorageValue('KEY_USEBLUETOOTH','1')));
   var dateFormat = getStorageValue('KEY_DATEFORMAT','1');
-  var settingsURI = "useSeconds=" + encodeURIComponent(parseInt(useSeconds)) + "&dateFormat="+ encodeURIComponent(parseInt(dateFormat));
-  Pebble.openURL('http://marks68.github.io/VideoGeek/settings.html?'+settingsURI);
+  var settingsURI = "useSeconds=" + encodeURIComponent(parseInt(useSeconds))+"&showBluetooth=" +parseInt(useBluetooth) + "&dateFormat="+ encodeURIComponent(parseInt(dateFormat));
+  Pebble.openURL('http://marks68.github.io/VideoGeek/settings_1_0_6.html?'+settingsURI);
 });
 
 Pebble.addEventListener('webviewclosed', function(e) {
@@ -28,10 +25,12 @@ Pebble.addEventListener('webviewclosed', function(e) {
   // Prepare AppMessage payload
   var dict = {
     'KEY_USESECONDS': parseInt(config_data.useSeconds),
+    'KEY_USEBLUETOOTH': parseInt(config_data.showBluetooth),
     'KEY_DATEFORMAT': parseInt(config_data.dateFormat)
   };
   // save settings to Pebble watchap
   localStorage.setItem('KEY_USESECONDS',parseInt(config_data.useSeconds));
+  localStorage.setItem('KEY_USEBLUETOOTH',parseInt(config_data.showBluetooth));
   localStorage.setItem('KEY_DATEFORMAT',parseInt(config_data.dateFormat));
   // Send settings to Pebble watchapp
   Pebble.sendAppMessage(dict, function(){
