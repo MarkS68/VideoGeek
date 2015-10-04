@@ -110,6 +110,15 @@
 			console.log(JSON.stringify(retObject));
 			document.location = return_to + encodeURIComponent(JSON.stringify(retObject));
 			});
+		
+		$( "#useLargeFonts" ).on( "change", function () {
+			if ($("#useLargeFonts").is(':checked')){
+				$('#useSecondsSelector').prop('checked',false).flipswitch('refresh');
+				$('#useSecondsSelector').flipswitch('disable');
+			  } else {
+				  $('#useSecondsSelector').flipswitch('enable');
+			  }
+		});
 	});
 	
 	</script>
