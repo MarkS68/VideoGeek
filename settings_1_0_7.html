@@ -71,6 +71,12 @@
 			} else {
 				$('#showBluetoothSelector').prop('checked',false).flipswitch('refresh');
 			}
+			var useLargeFonts = getQueryParam('useLargeFonts','1');
+			if (useLargeFonts ==='1'){
+				$('#useLargeFonts').prop('checked',true).flipswitch('refresh');
+			} else {
+				$('#useLargeFonts').prop('checked',false).flipswitch('refresh');
+			}
 			
 		var dtFormatValue = '[value='+ getQueryParam('dateFormat','1')+']';
 		$('#radio-choice-'+getQueryParam('dateFormat','1')).prop('checked',true).checkboxradio('refresh');
@@ -84,6 +90,13 @@
 			  } else {
 				  retObject.useSeconds = 0;
 			  }
+			  if ($("#useLargeFonts").is(':checked')){
+				  retObject.useLargeFonts = 1;
+			  } else {
+				  retObject.useLargeFonts = 0;
+			  }
+			  }
+			  
 			  if ($("#showBluetoothSelector").is(':checked')){
 				  retObject.showBluetooth = 1;
 			  } else {
